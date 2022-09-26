@@ -7,3 +7,4 @@ if a == b ** 2 or b == a ** 2:
     print("Да")
 else:
     print("Нет")
+    
