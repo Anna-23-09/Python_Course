@@ -7,6 +7,6 @@ x2 = float(input("Введите значение x2: "))
 y1 = float(input("Введите значение y1 : "))
 y2 = float(input("Введите значение y2: "))
 
-result = round((x1 - x2) + (y1 - y2),3)
+result = round((x2 - x1)*2 + (y2 - y1)*2 ,3)
 
 print (result)
