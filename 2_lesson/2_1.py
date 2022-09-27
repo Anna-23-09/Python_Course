@@ -5,4 +5,4 @@ n = int(input("Введите число N: "))
 m = 1
 for i in range(n):
     print(m)
-    m *= -n
+    m *= -3
