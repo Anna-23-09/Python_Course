@@ -21,7 +21,7 @@ for i in range(-n + (-1), n):
 for a in range(-n + (-1), n):      
     for b in range(-n + (-1), n):        
         for c in range (-n + (-1), n):
-            result = result * list[i_1] * list[i_2] * list[i_3]
+            result
 
 print(list)
-print(result)
+print(f' {result  * list[i_1] * list[i_2] * list[i_3]}')
