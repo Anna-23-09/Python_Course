@@ -11,17 +11,19 @@ list = []
 i_1 = a - 1
 i_2 = b - 1
 i_3 = c - 1
-# b = list[b - 1]
-# c = list[c - 1]
 
 result = 1
 for i in range(-n + (-1), n):
     list.append(i + 1)
     n += 1
+
 for a in range(-n + (-1), n):      
     for b in range(-n + (-1), n):        
         for c in range (-n + (-1), n):
-            result
-
+            if a <= (n * 2) + 1 and b <= (n * 2) + 1 and c <= (n * 2) + 1:
+                result
+            else:
+                print("Error")
 print(list)
 print(f' {result  * list[i_1] * list[i_2] * list[i_3]}')
+
