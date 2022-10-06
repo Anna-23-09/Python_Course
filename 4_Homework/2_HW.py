@@ -3,12 +3,15 @@
 
 n = int(input("N: "))
 def factors (n):
-    list = []
     a = 2
-    while n % a == 0 and a <= n:
-        list.append(a)
-    else:
-        a += 1
-    return list
+    new_list = []  
+    while a <= n:
+        if n % a == 0:
+            new_list.append(a)        
+            n //= a
+            a = 2
+        else:
+            a += 1
+    print(new_list)
 
-print(factors(n))
+factors(n)
