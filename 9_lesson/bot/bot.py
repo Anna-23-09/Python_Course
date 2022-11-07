@@ -1,4 +1,5 @@
 import logging
+from info import my_token
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.ext import (
@@ -16,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Определяем константы этапов разговора
-GENDER, PHOTO, LOCATION, BIO = range(4)
+GENDER, PHOTO, LOCATION, BIO, QUESTION = range(5)
 
 
 # функция обратного вызова точки входа в разговор
@@ -120,6 +121,7 @@ def skip_location(update, _):
     return BIO
 
 
+
 # Обрабатываем сообщение с рассказом/биографией пользователя
 def bio(update, _):
     # определяем пользователя
@@ -127,8 +129,19 @@ def bio(update, _):
     # Пишем в журнал биографию или рассказ пользователя
     logger.info("Пользователь %s рассказал: %s", user.first_name, update.message.text)
     # Отвечаем на то что пользователь рассказал.
-    update.message.reply_text('Спасибо! Надеюсь, когда-нибудь снова сможем поговорить.')
-    # Заканчиваем разговор.
+    update.message.reply_text('Ты IT-шник?')
+    return QUESTION
+
+# функция с кнопками о профессии
+def question(update, _):
+    # Список кнопок для ответа
+    reply_keyboard = [['Yes', 'No']]
+    # Создаем простую клавиатуру для ответа
+    markup_key = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    # Начинаем разговор с вопроса
+    update.message.reply_text(
+        'Спасибо! Надеюсь, когда-нибудь снова сможем поговорить.',
+        reply_markup=markup_key,)
     return ConversationHandler.END
 
 
@@ -151,7 +164,7 @@ def cancel(update, _):
 
 if __name__ == '__main__':
     # Создаем Updater и передаем ему токен вашего бота.
-    updater = Updater("5536065310:AAHUspAxxULy7_n2avKokoAgkxKIa3ixQEE")
+    updater = Updater(my_token)
     # получаем диспетчера для регистрации обработчиков
     dispatcher = updater.dispatcher
     # Определяем обработчик разговоров `ConversationHandler` 
@@ -167,6 +180,7 @@ if __name__ == '__main__':
                 MessageHandler(Filters.location, location),
                 CommandHandler('skip', skip_location),
             ],
+            QUESTION: [MessageHandler(Filters.regex('^(Yes|No)$'), gender)],
             BIO: [MessageHandler(Filters.text & ~Filters.command, bio)],
         },
         # точка выхода из разговора
